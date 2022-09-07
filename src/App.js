@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState }from "react";
+import axios from "axios"
+import kanye from "./images/kanye.png"
+import kanyeglasses from "./images/kanye_glasses.png"
+import "./App.css"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [quote, setQuote] = useState("");
+    function kanyeQuote() {
+        axios.get("https://api.kanye.rest")
+            .then((response) => {
+                const quote = response.data.quote;
+                setQuote(quote);
+            }) 
+            .catch((error) => {
+
+            })
+    
+    }
+    
+
+  return (<div className="app">
+            <div className="card"> 
+            <div className="quote">
+                <h2>{quote}</h2>
+                </div> 
+                <div>
+                <input value="" className="button" onClick={kanyeQuote} alt="kanye" type="submit" ></input>
+                </div>        
+  </div>
+  
+  </div>)
 }
 
-export default App;
+export default App
